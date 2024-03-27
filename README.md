@@ -21,3 +21,7 @@ Expliquer les types de graphiques utilisés dans le rapport de l'étude afin qu'
 
 - Script02_graphiques : exécution des différents graphiques en fonction des besoins et des fichiers préparés au préalable. Exportation de ces graphiques dans le dossier Output, selon le format voulu. 
 
+## Résultats
+Exemple de la figure 23 du rapport, exportée en jpeg directement dans le dossier des sorties.
+
+

@@ -24,7 +24,7 @@ figure_23 <- ggplot2::ggplot(data = tvb_cns_pourcentage_area,
         legend.title = element_blank())+
   facet_wrap(~ trame, scale ="free")
 
-ggsave("Output/figure_23.pdf",
+ggsave("Output/figure_23.jpeg",
        plot = figure_23,
        width = 11, 
        height = 8)
