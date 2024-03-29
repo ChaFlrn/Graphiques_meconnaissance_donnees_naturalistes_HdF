@@ -23,5 +23,8 @@ Expliquer les types de graphiques utilisés dans le rapport de l'étude afin qu'
 
 ## Résultats
 Exemple de la figure 23 du rapport, exportée en jpeg directement dans le dossier des sorties.
+-> graphique multifenêtres : une fenêtre par sous-trame, ordonnée = pourcentage de la surface des continuités écologiques, abscisse = départements
+
+
 
 
