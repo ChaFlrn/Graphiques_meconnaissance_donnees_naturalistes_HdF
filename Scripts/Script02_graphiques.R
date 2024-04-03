@@ -48,6 +48,7 @@ figure_11 <- ggplot2::ggplot(data = esp_pro_an,
   facet_wrap(~groupe_taxo, scale = "free")
 
 
+
 ggsave("Output/figure_11.jpeg",
        plot = figure_11,
        width = 11, 
