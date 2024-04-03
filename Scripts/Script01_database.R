@@ -1,14 +1,35 @@
 #### Récupération des données et préparation du fichier pour réaliser les graphiques ####
 
 ##### Les données #####
-cli::cli_h2("Données croisement TVB et indice connaissance, espèces protégées")
+cli::cli_h2("Données pour la figure 11")
+
+cli::cli_h3("Données des espèces protégées")
+
+load(file = "Data/data_esp_pro.RData")
+
+
+cli::cli_h2("Données pour la figure 23")
+
+cli::cli_h3("Données croisement TVB et indice connaissance, espèces protégées")
 
 data_tvb_cns_pro <- sf::read_sf("Data/tvb_cns.shp")
 
 
-##### Mise en forme du fichier #####
+##### Mise en forme des fichiers #####
 
 cli::cli_h2("Sélection des variables utiles")
+cli::cli_h3("Fichier esp_pro_propre")
+
+esp_pro_propre <- data_esp_pro %>%
+  dplyr::select(id,
+                date,
+                groupe_taxo)
+
+# Récupération de l'année de l'observation
+esp_pro_propre$annees <- base::substr(esp_pro_propre$date, 1,4)
+
+
+cli::cli_h3("Fichier tvb_cns_propre")
 
 tvb_cns_propre <- data_tvb_cns_pro %>%
   dplyr::select(trame, 
@@ -45,7 +66,21 @@ tvb_cns_propre <- tvb_cns_propre %>%
 
 tvb_cns_propre <- as.data.frame(tvb_cns_propre)
 
-cli::cli_h2("Calcul des pourcentages de surface par groupe taxonomique, département et trame")
+cli::cli_h2("Calcul des données nécessaires aux représentations graphiques")
+cli::cli_h3("Calcul du nombre d'observations, par année et par groupe taxonomique")
+
+esp_pro_an <- esp_pro_propre %>%
+  dplyr::group_by(annees, 
+                  groupe_taxo) %>%
+  summarise(nb_obs_an = n(),
+            .groups = "drop")
+
+esp_pro_an$nb_graph <- (esp_pro_an$nb_obs_an / 1000)
+
+
+
+
+cli::cli_h3("Calcul des pourcentages de surface par groupe taxonomique, département et trame")
 
 # Somme des surfaces par département, groupe taxonomique, trame et indice connaissance
 tvb_cns_pourcentage_area <- tvb_cns_propre %>%
@@ -78,7 +113,7 @@ tvb_cns_pourcentage_area <- tvb_cns_pourcentage_area %>%
          total_area, 
          total)
 
-##### Calcul des pourcentages #####
+# Calcul des pourcentages #
 tvb_cns_pourcentage_area$pourcentage = round((tvb_cns_pourcentage_area$total_area / tvb_cns_pourcentage_area$total) * 100, 2)
 
 
